@@ -1,4 +1,4 @@
-import { hooks } from '@bigcommerce/stencil-utils';
+import { api, hooks } from '@bigcommerce/stencil-utils';
 import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
@@ -43,6 +43,45 @@ export default class Category extends CatalogPage {
             $(imageElement).attr('srcset', newImageUrl);
         }
     }
+
+    addAllToCart({ currentTarget }) {
+        // Get the product IDs from the button.
+        const productIdsString = $(currentTarget).attr('data-product-ids').split(',');
+
+        // Convert string of product IDs to an array of line items.
+        const lineItems = $.map(productIdsString, value => ({
+            quantity: 1,
+            productId: parseInt(value, 10)
+        }));
+
+        const getOptions = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+
+        fetch('/api/storefront/carts', getOptions)
+            .then(response => response.json())
+            .then(([firstCart]) => {
+                const cartOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lineItems })
+                };
+
+                // TODO: Add api url to language file.
+                let apiUrl = '/api/storefront/carts';
+
+                // If the cart already exists, append the api url for adding line items.
+                if (firstCart) {
+                    apiUrl += `/${firstCart.id}/items`;
+                }
+
+                // Create the cart with line items, or add the line items to existing cart.
+                return fetch(apiUrl, cartOptions).then(response => response.json());
+            })
+            .then(cart => {
+                // TODO: Alert user of items added.
+                console.log(cart)
+            })
+            .catch(err => console.error(err));
+    }
     // END CHANGES.
 
     onReady() {
@@ -67,6 +106,8 @@ export default class Category extends CatalogPage {
 
         // IMPORTANT: BEGIN CHANGES.
         $('.product').on('mouseenter mouseleave', this.handleProductImageHover);
+
+        $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart);
         // END CHANGES.
     }
 
