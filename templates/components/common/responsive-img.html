@@ -44,6 +44,11 @@ There are a few important arguments to know about when using this component:
         {{!-- Allow lazysizes to generate the 'sizes' attribute automatically --}}
         data-sizes="auto"
 
+        {{!-- IMPORTANT: BEGIN CHANGES --}}
+        data-hover-src="{{getImageSrcset hoverImage 1x=(default fallback_size '160w')}}"
+        data-default-src="{{getImageSrcset defaultImage 1x=(default fallback_size '160w')}}"
+        {{!-- END CHANGES --}}
+
         {{#unless lazyload '==' 'disabled'}}
             {{#if lazyload '==' 'lazyload+lqip'}}
                 {{!-- If we want a LQIP, include it as the default srcset (will be overwritten by lazysizes) --}}

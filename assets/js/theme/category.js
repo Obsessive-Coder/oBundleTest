@@ -27,6 +27,24 @@ export default class Category extends CatalogPage {
         $('a.navList-action').on('click', () => this.setLiveRegionAttributes($('span.price-filter-message'), 'status', 'assertive'));
     }
 
+    // IMPORTANT: BEGIN CHANGES.
+    handleProductImageHover({ currentTarget, type: eventType }) {
+        // Get default and hover image URLs.
+        const imageElement = $(currentTarget).find('.card-image');
+        const defaultImageUrl = imageElement.attr('data-default-src');
+        const hoverImageUrl = imageElement.attr('data-hover-src');
+
+        // Use hoverImage only if the product item is hovered.
+        const isHovered = eventType === 'mouseenter';
+        const newImageUrl = isHovered ? hoverImageUrl : defaultImageUrl;
+
+        // Set the new image URL if it is valid.
+        if (newImageUrl && newImageUrl !== '') {
+            $(imageElement).attr('srcset', newImageUrl);
+        }
+    }
+    // END CHANGES.
+
     onReady() {
         this.arrangeFocusOnSortBy();
 
@@ -46,6 +64,10 @@ export default class Category extends CatalogPage {
         $('a.reset-btn').on('click', () => this.setLiveRegionsAttributes($('span.reset-message'), 'status', 'polite'));
 
         this.ariaNotifyNoProducts();
+
+        // IMPORTANT: BEGIN CHANGES.
+        $('.product').on('mouseenter mouseleave', this.handleProductImageHover);
+        // END CHANGES.
     }
 
     ariaNotifyNoProducts() {
