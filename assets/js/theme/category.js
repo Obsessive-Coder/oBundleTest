@@ -1,4 +1,4 @@
-import { hooks } from '@bigcommerce/stencil-utils';
+import { api, hooks } from '@bigcommerce/stencil-utils';
 import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
@@ -43,6 +43,39 @@ export default class Category extends CatalogPage {
             $(imageElement).attr('srcset', newImageUrl);
         }
     }
+
+    addAllToCart({ currentTarget }) {
+        const productIdsString = $(currentTarget).attr('data-product-ids').split(',');
+
+        const lineItems = $.map(productIdsString, value => ({
+            quantity: 1,
+            productId: parseInt(value, 10)
+        }));
+
+        const getOptions = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+
+        fetch('/api/storefront/carts', getOptions)
+            .then(response => response.json())
+            .then(([firstCart]) => {
+                const cartOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lineItems })
+                };
+
+                let apiUrl = '/api/storefront/carts';
+
+                if (firstCart) {
+                    apiUrl += `/${firstCart.id}/items`;
+                }
+
+                return fetch(apiUrl, cartOptions).then(response => response.json());
+            })
+            .then(cart => {
+                console.log(cart)
+            })
+            .catch(err => console.error(err));
+    }
     // END CHANGES.
 
     onReady() {
@@ -67,6 +100,8 @@ export default class Category extends CatalogPage {
 
         // IMPORTANT: BEGIN CHANGES.
         $('.product').on('mouseenter mouseleave', this.handleProductImageHover);
+
+        $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart);
         // END CHANGES.
     }
 
