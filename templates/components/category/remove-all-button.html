@@ -8,14 +8,14 @@
 
     {{#or customer (unless settings.hide_price_from_guests)}}
         <div class="add-to-cart-buttons">
-            <input
-                data-wait-message="{{lang 'products.adding_to_cart'}}"
-                class="button button--primary"
-                type="button"
-                data-button-type="add-all-cart"
-                data-product-ids="{{#each category.products as | product |}}{{product.id}}{{#unless @last}},{{/unless}}{{/each}}"
-                value="{{#if product.pre_order}}{{lang 'products.pre_order'}}{{else}}{{lang 'products.add_all_to_cart'}}{{/if}}"
+            <button 
+                class="button button--small cart-remove-all"
+                data-cart-itemid="{{id}}"
+                data-confirm-delete="{{lang 'cart.confirm_delete'}}"
+                aria-label="{{lang 'cart.remove_item' name=name}}"
             >
+                {{lang 'products.remove_all_from_cart'}}
+            </button>
             <span class="product-status-message aria-description--hidden">{{lang 'products.adding_to_cart'}} {{lang 'category.add_cart_announcement'}}</span>
         </div>
     {{/or}}
