@@ -77,9 +77,13 @@ export default class Category extends CatalogPage {
                 // Create the cart with line items, or add the line items to existing cart.
                 return fetch(apiUrl, cartOptions).then(response => response.json());
             })
-            .then(() => {
+            .then(cart => {
                 // Alert user of items added.
                 showAlertModal('All items added to cart', { icon: 'warning' });
+
+                // Show the remove all items button.
+                this.context.cartId = cart.id;
+                $('[data-button-type="remove-all-cart"]').css('display', 'initial');
             })
             .catch(err => console.error(err));
     }
@@ -97,6 +101,9 @@ export default class Category extends CatalogPage {
             .then(() => {
                 // Alert user of items removed.
                 showAlertModal('All items removed from cart');
+
+                // Hide the remove all items button.
+                $('[data-button-type="remove-all-cart"]').css('display', 'none');
             })
             .catch(err => console.error(err));
     }
@@ -128,6 +135,10 @@ export default class Category extends CatalogPage {
         $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart.bind(this));
 
         $('[data-button-type="remove-all-cart"]').on('click', this.removeAllFromCart.bind(this));
+
+        if (this?.context?.cartId) {
+            $('[data-button-type="remove-all-cart"]').css('display', 'initial');
+        }
         // END CHANGES.
     }
 
