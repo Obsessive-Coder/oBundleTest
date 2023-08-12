@@ -1,4 +1,4 @@
-import { api, hooks } from '@bigcommerce/stencil-utils';
+import { hooks } from '@bigcommerce/stencil-utils';
 import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
