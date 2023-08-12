@@ -295,6 +295,7 @@ $card-preview-zoom-bottom-offset:       6rem;
 .cart-remove-all:focus {
     border-color: red;
     color: red;
+    display: none;
 }
 
 .cart-remove-all:hover,
