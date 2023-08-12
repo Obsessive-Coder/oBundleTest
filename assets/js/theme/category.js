@@ -3,6 +3,7 @@ import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
 import { createTranslationDictionary } from '../theme/common/utils/translations-utils';
+import { showAlertModal } from './global/modal';
 
 export default class Category extends CatalogPage {
     constructor(context) {
@@ -76,9 +77,9 @@ export default class Category extends CatalogPage {
                 // Create the cart with line items, or add the line items to existing cart.
                 return fetch(apiUrl, cartOptions).then(response => response.json());
             })
-            .then(cart => {
-                // TODO: Alert user of items added.
-                console.log(cart)
+            .then(() => {
+                // Alert user of items added.
+                showAlertModal('All items added to cart', { icon: 'warning' });
             })
             .catch(err => console.error(err));
     }
@@ -93,9 +94,9 @@ export default class Category extends CatalogPage {
 
         // Delete the cart.
         fetch(`/api/storefront/carts/${cartId}`, options)
-            .then(response => {
-                // TODO: Alert user of items removed.
-                console.log(response);
+            .then(() => {
+                // Alert user of items removed.
+                showAlertModal('All items removed from cart');
             })
             .catch(err => console.error(err));
     }
