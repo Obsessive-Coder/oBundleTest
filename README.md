@@ -15,11 +15,11 @@ hvr3y3z7pd
 - [x] Show product's second image when it is hovered
 - [x] Add a button at the top of the category page labeled "Add All To Cart"
 - [x] When clicked, the product will be added to the cart
-- [] Notify the user that the product has been added
+- [x] Notify the user that the product has been added
 - [x] Add a button next to the "Add All" button labeled "Remove All Items"
 - [x] Hide "Remove All" button if no items are in the cart
 - [x] When clicked it should clear the cart
-- [] Notify the user that the cart was cleared
+- [x] Notify the user that the cart was cleared
 - [x] Both buttons should utilize the Storefront API
 
 
