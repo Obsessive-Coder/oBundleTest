@@ -1,4 +1,5 @@
 # Tasks
+hvr3y3z7pd
 ## Setup
 - [x] Sign up for a BigCommerce trial store
 - [x] Install Stencil CLI
@@ -11,9 +12,9 @@
 - [x] Assign new product to new category
 - [x] Add at least 2 images for the product
 - [x] New product should be the only item in the category
-- [] Show product's second image when it is hovered
-- [] Add a button at the top of the category page labeled "Add All To Cart"
-- [] When clicked, the product will be added to the cart
+- [x] Show product's second image when it is hovered
+- [x] Add a button at the top of the category page labeled "Add All To Cart"
+- [x] When clicked, the product will be added to the cart
 - [] Notify the user that the product has been added
 - [] Add a button next to the "Add All" button labeled "Remove All Items"
 - [] Hide "Remove All" button if no items are in the cart
