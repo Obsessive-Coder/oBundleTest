@@ -1,0 +1,25 @@
+{{#if category.products}}
+    {{#if cart_id}}
+        <div class="alertBox productAttributes-message" style="display:none">
+            <div class="alertBox-column alertBox-icon">
+                <icon glyph="ic-success" class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></icon>
+            </div>
+            <p class="alertBox-column alertBox-message"></p>
+        </div>
+
+        {{#or customer (unless settings.hide_price_from_guests)}}
+            <div class="add-to-cart-buttons">
+                <button 
+                    class="button button--small cart-remove-all"
+                    data-cart-itemid="{{id}}"
+                    data-confirm-delete="{{lang 'cart.confirm_delete'}}"
+                    data-button-type="remove-all-cart"
+                    aria-label="{{lang 'cart.remove_item' name=name}}"
+                >
+                    {{lang 'products.remove_all_from_cart'}}
+                </button>
+                <span class="product-status-message aria-description--hidden">{{lang 'products.adding_to_cart'}} {{lang 'category.add_cart_announcement'}}</span>
+            </div>
+        {{/or}}
+    {{/if}}
+{{/if}}

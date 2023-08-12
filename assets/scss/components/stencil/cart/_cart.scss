@@ -283,6 +283,28 @@ $card-preview-zoom-bottom-offset:       6rem;
     }
 }
 
+.cart-buttons-container {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: 30%;
+}
+
+// IMPORTANT: BEGIN CHANGES.
+.cart-remove-all,
+.cart-remove-all:focus {
+    border-color: red;
+    color: red;
+}
+
+.cart-remove-all:hover,
+.cart-remove-all:active {
+    border-color: red;
+    background-color: red;
+    color: white;
+}
+// END CHANGES.
+
 .cart-remove {
     background-color: container("fill", "dark");
     border-radius: 50%;
