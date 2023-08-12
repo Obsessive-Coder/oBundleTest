@@ -82,6 +82,23 @@ export default class Category extends CatalogPage {
             })
             .catch(err => console.error(err));
     }
+
+    removeAllFromCart() {
+        const { cartId } = this.context;
+
+        // Return if no cart id.
+        if (!cartId) return;
+
+        const options = { method: 'DELETE', headers: { 'Content-Type': 'application/json' } };
+
+        // Delete the cart.
+        fetch(`/api/storefront/carts/${cartId}`, options)
+            .then(response => {
+                // TODO: Alert user of items removed.
+                console.log(response);
+            })
+            .catch(err => console.error(err));
+    }
     // END CHANGES.
 
     onReady() {
@@ -107,7 +124,9 @@ export default class Category extends CatalogPage {
         // IMPORTANT: BEGIN CHANGES.
         $('.product').on('mouseenter mouseleave', this.handleProductImageHover);
 
-        $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart);
+        $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart.bind(this));
+
+        $('[data-button-type="remove-all-cart"]').on('click', this.removeAllFromCart.bind(this));
         // END CHANGES.
     }
 

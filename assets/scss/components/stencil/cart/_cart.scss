@@ -290,10 +290,20 @@ $card-preview-zoom-bottom-offset:       6rem;
     width: 30%;
 }
 
-.cart-remove-all {
+// IMPORTANT: BEGIN CHANGES.
+.cart-remove-all,
+.cart-remove-all:focus {
     border-color: red;
     color: red;
 }
+
+.cart-remove-all:hover,
+.cart-remove-all:active {
+    border-color: red;
+    background-color: red;
+    color: white;
+}
+// END CHANGES.
 
 .cart-remove {
     background-color: container("fill", "dark");
