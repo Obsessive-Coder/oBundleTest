@@ -81,12 +81,12 @@ export default class Category extends CatalogPage {
                 // Alert user of items added.
                 showAlertModal('All items added to cart', { icon: 'warning' });
 
-                // Show the remove all items button.
-                this.context.cartId = cart.id;
-                $('[data-button-type="remove-all-cart"]').css('display', 'initial');
-
                 // Update the cart quantity.
                 $('body').trigger('cart-quantity-update', cart.cartAmount);
+
+                // Show the remove all items button.
+                this.context.cartId = cart.id;
+                this.showHideRemoveAllButton();
             })
             .catch(err => console.error(err));
     }
@@ -105,13 +105,27 @@ export default class Category extends CatalogPage {
                 // Alert user of items removed.
                 showAlertModal('All items removed from cart');
 
-                // Hide the remove all items button.
-                $('[data-button-type="remove-all-cart"]').css('display', 'none');
-
                 // Update the cart quantity.
                 $('body').trigger('cart-quantity-update', 0);
+
+                // Hide the remove all items button.
+                this.showHideRemoveAllButton();
             })
             .catch(err => console.error(err));
+    }
+
+    showHideRemoveAllButton() {
+        let display = 'none';
+
+        if (localStorage.getItem('cart-quantity')) {
+            const quantity = Number(localStorage.getItem('cart-quantity'));
+
+            if (quantity > 0) {
+                display = 'initial';
+            }
+        }
+
+        $('[data-button-type="remove-all-cart"]').css('display', display);
     }
     // END CHANGES.
 
@@ -136,14 +150,18 @@ export default class Category extends CatalogPage {
         this.ariaNotifyNoProducts();
 
         // IMPORTANT: BEGIN CHANGES.
+        // Handle product image hover.
         $('.product').on('mouseenter mouseleave', this.handleProductImageHover);
 
+        // Handle 'add all' button click.
         $('[data-button-type="add-all-cart"]').on('click', this.addAllToCart.bind(this));
 
+        // Handle 'remove all' button click.
         $('[data-button-type="remove-all-cart"]').on('click', this.removeAllFromCart.bind(this));
 
+        // Show the 'remove all' button if there are items in the cart.
         if (this?.context?.cartId) {
-            $('[data-button-type="remove-all-cart"]').css('display', 'initial');
+            this.showHideRemoveAllButton();
         }
         // END CHANGES.
     }
