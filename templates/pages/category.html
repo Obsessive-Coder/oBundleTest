@@ -48,10 +48,12 @@ category:
     {{/if}}
 
     <div class="page-content" id="product-listing-container">
-        <div class="cart-buttons-container">
-            {{> components/category/add-all-button}}
-            {{> components/category/remove-all-button}}
-        </div>
+        {{#if settings.request.absolute_path '===' '/special-items/'}}
+            <div class="cart-buttons-container">
+                {{> components/category/add-all-button}}
+                {{> components/category/remove-all-button}}
+            </div>
+        {{/if}}
 
         {{> components/category/product-listing}}
         {{{region name="category_below_content"}}}
