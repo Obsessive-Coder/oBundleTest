@@ -25,13 +25,13 @@ hvr3y3z7pd
 
 ## Bonus
 If a customer is logged in:
-- [] Show a banner at the top of the category page
-- [] Show customer details in banner
-    - [] Name
-    - [] Email
-    - [] Phone
-    - [] Etc
-- [] Use data that is rendered via Handlebars on the Customer Object
+- [x] Show a banner at the top of the category page
+- [x] Show customer details in banner
+    - [x] Name
+    - [x] Email
+    - [x] Phone
+    - [x] Etc
+- [x] Use data that is rendered via Handlebars on the Customer Object
 
 ## Submission
 - [x] Create a GitHub repo

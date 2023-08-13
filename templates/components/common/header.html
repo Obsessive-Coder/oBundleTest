@@ -5,15 +5,36 @@
         <div class="banners" data-banner-location="top">
             <div class="banner" data-event-type="promotion" data-entity-id="{{this.id}}" data-name="{{this.banner-name}}" data-position="{{this.location}}" data-banner-id="{{this.banner-name}}">
                 <div data-event-type="promotion-click" class="customer-banner">
-                    <label>{{customer.name}}</label>
-                    <label>{{customer.email}}</label>
-                    <label>
-                        {{#if customer.phone}}
-                            {{customer.phone}}
-                        {{else}}
-                            No Phone Number
-                        {{/if}}
-                    </label>
+                    <div>
+                        <p class="fw-bold">
+                            {{#if customer.name}}
+                                {{customer.name}}
+                            {{else}}
+                                John Doe
+                            {{/if}}
+                        </p>
+
+                        <p>
+                            {{#if customer.email}}
+                                {{customer.email}}
+                            {{else}}
+                                example@email.com
+                            {{/if}}
+                        </p>
+
+                        <p>
+                            {{#if customer.phone}}
+                                {{customer.phone}}
+                            {{else}}
+                                (888) 888-8888
+                            {{/if}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="fw-bold">Store Credit</p>
+                        <p>{{customer.store_credit.formatted}}</p>
+                    </div>
                 </div>
             </div>
         </div>
