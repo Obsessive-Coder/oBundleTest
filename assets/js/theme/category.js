@@ -84,6 +84,9 @@ export default class Category extends CatalogPage {
                 // Show the remove all items button.
                 this.context.cartId = cart.id;
                 $('[data-button-type="remove-all-cart"]').css('display', 'initial');
+
+                // Update the cart quantity.
+                $('body').trigger('cart-quantity-update', cart.cartAmount);
             })
             .catch(err => console.error(err));
     }
@@ -104,6 +107,9 @@ export default class Category extends CatalogPage {
 
                 // Hide the remove all items button.
                 $('[data-button-type="remove-all-cart"]').css('display', 'none');
+
+                // Update the cart quantity.
+                $('body').trigger('cart-quantity-update', 0);
             })
             .catch(err => console.error(err));
     }
